@@ -1,0 +1,61 @@
+{% load django_bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ dia.title }}</title>
+    {% bootstrap_css %}
+    {#  부트스트랩 사용하기위한거 css, 자바스크립트(얘는 아래에 있음)  #}
+
+</head>
+
+<body>
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <span class="fs-4">장고 diary</span>
+        </a>
+
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
+            <li class="nav-item"><a href="/diary" class="nav-link">Diary</a></li>
+
+            {% if not user.is_authenticated %}
+            {# 유저가 인증되지 않은 상황이면 아래와 같은 창을 위에 띄워라 #}
+            <li class = 'nav-item'><a href="/accounts/signup" class="nav-link">signup</a></li>
+            <li class = 'nav-item'><a href="/accounts/login" class="nav-link">login</a></li>
+            {% else %}
+            <li class = 'nav-item'><a href="/accounts/profile" class="nav-link">profile</a></li>
+            <li class = 'nav-item'><a href="/accounts/logout" class="nav-link">logout</a></li>
+            {% endif %}
+
+        </ul>
+    </header>
+</div>
+
+<div class="container">
+{% bootstrap_messages %}
+
+{% if messages %}
+    {% for msg in messages %}
+        <li>
+            {{ msg.tags }}
+            {#success등의 테그#}
+            {{ msg }}
+        </li>
+    {% endfor %}
+{% endif %}
+
+{% block content %}{% endblock %}
+{# 응 base.html을 다른데서 사용하는 그거 맞아 #}
+<hr/>
+&copy; 2022. kosclid
+</div>
+
+{% bootstrap_javascript %}
+
+</body>
+</html>
