@@ -1,7 +1,7 @@
 from django.urls import path
-from accounts import views
+from recommand import views
 
 urlpatterns = [
-
+    path('', views.index),
 
 ]
