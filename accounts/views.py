@@ -1,6 +1,7 @@
 # 이미 있는 라이브러리들이다...ㅎㅎㅎ
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from accounts.forms import UserForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render
 
@@ -21,7 +22,10 @@ def profile(request):
 
 
 signup = CreateView.as_view(
-    form_class=UserCreationForm,
+    form_class=UserForm,
     success_url='/accounts/login/', # 회원가입시 login화면으로 ㄱㄱ
     template_name='accounts/signup_form.html',
+
+
+
 )
