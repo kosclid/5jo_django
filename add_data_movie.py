@@ -33,10 +33,11 @@ with open('데이터완성본_id추가_중복제거.csv', encoding='utf8') as cs
         m_n = m_n.replace('  ', ' ')
         year = int(row[4])
         sech = m_n + '_' + str(year)
-        movie_poster = 'static/img/{}.png'.format(sech)
+        movie_poster = 'static/img/poster/{}.png'.format(sech)
+        rader_chart = 'static/img/rader/{}.png'.format(sech)
 
         movie = Movie(movie_id=movie_id, movie_name=movie_name, year=year, movie_dir=movie_dir, movie_act=movie_act,
-                      movie_ger=movie_ger, movie_text=movie_text, movie_poster=movie_poster)
+                      movie_ger=movie_ger, movie_text=movie_text, movie_poster=movie_poster, rader_chart=rader_chart)
         movie_list.append(movie)
         print(movie_id)
 print(len(movie_list))

@@ -2,6 +2,7 @@
 import csv
 import os
 import django
+import re
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "movie_prj.settings")
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
@@ -26,14 +27,6 @@ with open('데이터완성본_id추가.csv', encoding='utf8') as csv_file_sub_ca
         loudness = row[11]
         tempo = row[12]
         cluster = None
-
-        if valence == 'emt':
-            valence = None
-            acousticness = None
-            danceability = None
-            energy = None
-            loudness = None
-            tempo = None
 
         ost = Ost(movie_id=movie_id, ost_name=ost_name, valence=valence, acousticness=acousticness,
                   danceability=danceability, energy=energy, loudness=loudness, tempo=tempo, cluster=cluster)
