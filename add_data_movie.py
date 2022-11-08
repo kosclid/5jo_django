@@ -2,11 +2,13 @@
 import csv
 import os
 import django
+import re
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "movie_prj.settings")
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 django.setup()
 from recommand.models import Movie, Ost
+
 movie = Movie()
 movie_list = []
 
@@ -21,7 +23,18 @@ with open('데이터완성본_id추가_중복제거.csv', encoding='utf8') as cs
         movie_act = row[6]
         movie_ger = row[7]
         movie_text = ''
-        movie_poster = ''
+
+        m_n = row[1]
+        if 'Borat' in m_n:
+            m_n = m_n.split(':')[0].strip()
+        print(m_n)
+        m_n = re.sub(r'[^\w]', ' ', m_n)
+        m_n = m_n.replace("'", "")
+        m_n = m_n.replace('  ', ' ')
+        year = int(row[4])
+        sech = m_n + '_' + str(year)
+        movie_poster = 'static/img/{}.png'.format(sech)
+
         movie = Movie(movie_id=movie_id, movie_name=movie_name, year=year, movie_dir=movie_dir, movie_act=movie_act,
                       movie_ger=movie_ger, movie_text=movie_text, movie_poster=movie_poster)
         movie_list.append(movie)

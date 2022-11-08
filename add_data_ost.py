@@ -1,4 +1,4 @@
-# Ost 데이터 저장
+# # Ost 데이터 저장
 import csv
 import os
 import django
@@ -43,7 +43,8 @@ print(len(ost_list))
 Ost.objects.bulk_create(ost_list)
 Ost.objects.all().count()
 
-# 데이터 수정
+
+# # 데이터 수정
 # import os
 # import django
 #

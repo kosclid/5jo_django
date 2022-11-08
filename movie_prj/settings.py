@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+AUTH_USER_MODEL = 'accounts.User'
 # Application definition
 
 INSTALLED_APPS = [
@@ -136,8 +136,19 @@ USE_TZ = False
 
 STATIC_URL = "static/"
 
+# import os
+# MEDIA_URL = '/static/' # 업로드 할 경로
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'static') #로컬 디렉토리 어디에 저장할 것인지
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# 사진 넣기위한 준비
+# import os
+
+STATICFILES_DIRS = [
+    # os.path.join(BASE_DIR, 'static'),
+    BASE_DIR / 'static',
+]

@@ -1,0 +1,21 @@
+{% extends 'recommand/base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+
+    <div class="container">
+    {% for p in poster %}
+
+        {% if p.movie_id == 0 %}
+        <img class = 'card-img-top' src="{{ p.movie_poster.url }}" alt = 'Card image cap' >
+
+        {% endif %}
+
+
+
+
+    {% endfor %}
+
+
+    </div>
+
+{% endblock %}

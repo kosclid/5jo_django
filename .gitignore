@@ -4,3 +4,4 @@ __pycache__
 .idea
 ngrok.exe
 .ipynb_checkpoints
+_media

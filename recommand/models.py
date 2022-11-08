@@ -8,8 +8,8 @@ class Movie(models.Model):
     movie_dir = models.CharField(max_length=100)
     movie_act = models.CharField(max_length=200)
     movie_ger = models.CharField(max_length=200)
-    movie_text = models.TextField(null=True)
-    movie_poster = models.ImageField(null=True)
+    movie_text = models.TextField(null=True, blank=True)
+    movie_poster = models.ImageField(upload_to='recommand/images/%Y', blank=True, null=True)
 
     def __str__(self):
         return f'[{self.movie_id}] : {self.movie_name}({self.year})'
@@ -28,3 +28,5 @@ class Ost(models.Model):
 
     def __str__(self):
         return f'{self.movie_id} : {self.ost_name}'
+
+
