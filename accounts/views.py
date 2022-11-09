@@ -29,12 +29,5 @@ signup = CreateView.as_view(
     template_name='accounts/signup_form.html',
 )
 
-def test(request):
-    user = User.objects.all()
-    return render(
-        request,
-        "accounts/test.html",
-        {'user': user, })
-
 
 

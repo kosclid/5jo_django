@@ -2,7 +2,6 @@ from django.db import models
 from accounts.models import User
 from django.core.validators import MaxValueValidator
 
-
 class Movie(models.Model):
     movie_id = models.IntegerField(primary_key=True)
     movie_name = models.CharField(max_length=200)
@@ -43,3 +42,25 @@ class User_rating(models.Model):
     recommand_id = models.ForeignKey('Movie_recommand', on_delete=models.CASCADE, db_column='recommand_id')
     review = models.PositiveSmallIntegerField(validators=[MaxValueValidator(2),], null=True)
     movie_id = models.ForeignKey(Movie, on_delete=models.CASCADE, db_column='movie_id')
+
+def ost_search(movie_all):
+    mo_id = movie_all
+    ost_all = []
+    for mov_id in mo_id:
+        forign = Ost.objects.filter(movie_id_id=mov_id)
+        ost_one = []
+        for ost_num in forign:
+            ost_one.append(ost_num.ost_name)
+        ost_all.append(ost_one)
+    return (ost_all)
+
+
+
+
+
+
+# def movie_recomand(m_n):
+#     rec_mov = Movie.objects.fileter(movie_name=m_n)
+#     return rec_mov
+
+
