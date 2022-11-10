@@ -16,17 +16,14 @@ pip install Pillow
 pip install scipy
 
 3. migrate
-(venv) PS C:\workspace\esg-a-django> python .\manage.py showmigrations
-migrate해야하는 목록 보여줌
+python manage.py makemigrations
+python manage.py migrate
 
-(venv) PS C:\workspace\esg-a-django> python manage.py makemigrations
-blog에 migrations 파일을 만들어줌
-(venv) PS C:\workspace\esg-a-django> python manage.py migrate
-장고 코드에 맞도록 데이터베이스 만들어줌
-
-(venv) PS C:\workspace\esg-a-django> python manage.py createsuperuser
+python manage.py createsuperuser
 데이터베이스 슈퍼계정(관리자) 만들기
 
-장고 설치 제외하고는 새로운 프로젝트 때마다 해줘야함
-
-실험용
+이후 데이터 베이스가 잘 연결되어 있다면 아래코드가 실행됩니다.
+add_data_movie.py
+add_data_ost.py
+add_data_nomal.py
+차례대로 실행 (데이터 베이스에 데이터 저장하는 과정)

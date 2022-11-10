@@ -27,27 +27,31 @@
 
                 {% for re_mv in rec_mv %}
 
-                <tr>
-                    <td> 0</td>
-                    <td> <img src="{{ re_mv.movie_poster.url }}" alt="poster"></td>
-                    <td>영화제목 : {{ re_mv.movie_name}} <br>
-                        장르 : {{ re_mv.movie_ger}} <br>
-                        감독 : {{ re_mv.movie_dir}} <br>
-                        배우 : {{ re_mv.movie_act}} <br>
-                        <a href="#"> 영화 예고편 </a><br>
-                    </td>
-                    <td> <img src="{{ re_mv.rader_chart.url }}" alt="rader"></td>
-                    <td>
+                    <tr>
+                        <td> 0</td>
+                        <td><img src="{{ re_mv.movie_poster.url }}" alt="poster"></td>
+                        <td>영화제목 : {{ re_mv.movie_name }} <br>
+                            장르 : {{ re_mv.movie_ger }} <br>
+                            감독 : {{ re_mv.movie_dir }} <br>
+                            배우 : {{ re_mv.movie_act }} <br>
+                            <a href="#"> 영화 예고편 </a><br>
+                        </td>
+                        {% for re_ost in rec_ost %}
+                            {% if re_ost.movie_id_id == re_mv.movie_id %}
+                                <td><img src="{{ re_ost.rader_chart.url }}" alt="rader"></td>
+                            {% endif %}
+
+                        {% endfor %}
+
+                        <td>
                             <span class="action_btn">
                                 <button type="button" name="{{ re_mv.movie_id }}">좋아요</button>
                                 <button type="button">싫어요</button>
                             </span>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
 
-            {% endfor %}
-
-
+                {% endfor %}
 
 
                 </tbody>

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from recommand.models import Movie, Ost, ost_search, movie_recomand
+from recommand.models import Movie, Ost, ost_search, movie_recomand, ost_recomand
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
@@ -55,9 +55,11 @@ def search(request):
 
 def relist(request, sel_id):
     recom_list = movie_recomand(sel_id)
+    re_ost_list = ost_recomand(sel_id)
     rec_mv = Movie.objects.filter(movie_id__in=recom_list)
+    rec_ost = Ost.objects.filter(id__in=re_ost_list)
 
     return render(
         request,
         "recommand/recomlist.html",
-        {'rec_mv': rec_mv})
+        {'rec_mv': rec_mv, 'rec_ost': rec_ost})
