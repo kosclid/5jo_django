@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ dia.title }}</title>
+    <title>말할 수 없는 영화</title>
     {% bootstrap_css %}
     {#  부트스트랩 사용하기위한거 css, 자바스크립트(얘는 아래에 있음)  #}
     <!-- Custom fonts for this template -->
@@ -20,31 +20,40 @@
     <!-- Custom styles for this page -->
     <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
 
+
+    {#    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}" media="screen"/>#}
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}"/>
+
 </head>
 
 <body>
 <div class="container">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-            <span class="fs-4">장고 diary</span>
-        </a>
 
-        <ul class="nav nav-pills">
-            <li class="nav-item"><a href="/home" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="/recommand" class="nav-link">Recommand</a></li>
-            <li class="nav-item"><a href="/detail" class="nav-link">Detail</a></li>
 
-            {% if not user.is_authenticated %}
-                {# 유저가 인증되지 않은 상황이면 아래와 같은 창을 위에 띄워라 #}
-                <li class='nav-item'><a href="/accounts/signup" class="nav-link">signup</a></li>
-                <li class='nav-item'><a href="/accounts/login" class="nav-link">login</a></li>
-            {% else %}
-                <li class='nav-item'><a href="/accounts/profile" class="nav-link">profile</a></li>
-                <li class='nav-item'><a href="/accounts/logout" class="nav-link">logout</a></li>
-            {% endif %}
+    <nav class="navbar navbar-expand-sm navbar-light">
+        <div class="container-fluid ">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbarToggler3"
+                    aria-controls="myNavbarToggler3" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="/recommand">O' movie</a>
 
-        </ul>
-    </header>
+            <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto">
+                    {% if not user.is_authenticated %}
+                        {#                 유저가 인증되지 않은 상황이면 아래와 같은 창을 위에 띄워라#}
+                        <li class='nav-item'><a href="/accounts/signup" class="nav-link">signup</a></li>
+                        <li class='nav-item'><a href="/accounts/login" class="nav-link">login</a></li>
+                    {% else %}
+                        <li class='nav-item'><a href="/accounts/profile" class="nav-link">profile</a></li>
+                        <li class='nav-item'><a href="/accounts/logout" class="nav-link">logout</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
 </div>
 
 <div class="container">

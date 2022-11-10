@@ -14,6 +14,7 @@ class Movie(models.Model):
     movie_text = models.TextField(null=True, blank=True)
     movie_poster = models.ImageField(upload_to='recommand/images/poster')
     rader_chart = models.ImageField(upload_to='recommand/images/rader')
+    # movie_link = models.CharField(max_length=200)
 
     def __str__(self):
         return f'[{self.movie_id}] : {self.movie_name}({self.year})'
@@ -68,6 +69,7 @@ def ost_search(movie_all):
             ost_one.append(ost_num.ost_name)
         ost_all.append(ost_one)
     return (ost_all)
+
 
 def movie_recomand(ch_ost):
     ost_sel = Ost.objects.get(id=ch_ost)

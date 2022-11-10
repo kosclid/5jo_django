@@ -1,7 +1,11 @@
 {% extends 'recommand/base.html' %}
 {% load django_bootstrap5 %}
+{% load static %}
 
 {% block content %}
+
+    <link rel="stylesheet" href="{% static 'css/otherhome.css' %}" media="screen"/>
+
     {% if searched %}
         <body id="page-top">
         <!-- Page Wrapper -->
@@ -74,18 +78,18 @@
                                                             {% if searched|upper in fig.ost_name|upper %}
                                                                 <a><span
                                                                         style="background-color : #ebff82">{{ fig.ost_name }}</span>
-                                                                    <button type="button"
-                                                                            class="btn btn-outline-primary">추천 받기
-                                                                    </button>
-                                                                </a><br>
+                                                                </a>
                                                             {% else %}
                                                                 <a>{{ fig.ost_name }}    </a>
-                                                                <button type="button" class="btn btn-outline-primary">추천
-                                                                    받기
-                                                                </button><br>
                                                             {% endif %}
+                                                            <form class="d-flex" method='POST'
+                                                                  action="/recommand/list/{{ fig.id }}">
+                                                                {% csrf_token %}
+                                                                <button class="btn btn-dark"
+                                                                        type="submit">추천 받기
+                                                                </button>
+                                                            </form>
                                                         {% endif %}
-
                                                     {% endfor %}
                                                 </td>
                                             </tr>

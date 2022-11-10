@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from recommand.models import Movie, Ost, ost_search
+from recommand.models import Movie, Ost, ost_search, movie_recomand
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
@@ -12,6 +12,13 @@ def index(request):
         request,
         "recommand/index.html",
         {'poster': poster, })
+
+
+def home(request):
+    return render(
+        request,
+        "recommand/home.html",
+        {})
 
 
 @login_required  # 함수위에 씌워주면 로그인시에만 확인 가능
@@ -44,3 +51,13 @@ def search(request):
                       {'searched': searched, 'movie_sh': movie_sh, 'forign': forign})
     else:
         return render(request, 'recommand/searched.html', {})
+
+
+def relist(request, sel_id):
+    recom_list = movie_recomand(sel_id)
+    rec_mv = Movie.objects.filter(movie_id__in=recom_list)
+
+    return render(
+        request,
+        "recommand/recomlist.html",
+        {'rec_mv': rec_mv})
