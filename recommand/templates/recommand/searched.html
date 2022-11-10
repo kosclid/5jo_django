@@ -2,97 +2,108 @@
 {% load django_bootstrap5 %}
 
 {% block content %}
-{% if searched %}
-<body id="page-top">
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-        <!-- Sidebar -->
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+    {% if searched %}
+        <body id="page-top">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+            <!-- Sidebar -->
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
 
-            <!-- Main Content -->
-            <div id="content">
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <!-- Main Content -->
+                <div id="content">
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
 
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">검색하신 {{ searched }} 정보입니다.</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-    <tr>
-      <th>포스터</th>
-      <th>영화정보</th>
-      <th>Ost</th>
-    </tr>
-  </thead>
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">검색하신 {{ searched }} 정보입니다.</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                            <th>포스터</th>
+                                            <th>영화정보</th>
+                                            <th>Ost</th>
+                                        </tr>
+                                        </thead>
 
-  <tbody>
-                  {% for msh in movie_sh %}
-    <tr>
-        <td>
-            <img src="{{ msh.movie_poster.url }}" alt = 'Card image cap'  style="width:100px; text-align: -moz-center;
+                                        <tbody>
+                                        {% for msh in movie_sh %}
+                                            <tr>
+                                                <td>
+                                                    <img src="{{ msh.movie_poster.url }}" alt='Card image cap' style="width:100px; text-align: -moz-center;
                     vertical-align: middle; text-align: -webkit-center;">
-        </td>
-        <td>
-            <h5>영화 제목 : </h5>
-                {% if searched|upper in msh.movie_name|upper %}
-                    <h5> <span style="background-color : #ebff82">{{ msh.movie_name }}</span></h5><br>
-                {% else %}
-                    <h5>{{ msh.movie_name }}</h5><br>
-                {% endif %}
+                                                </td>
+                                                <td>
+                                                    <h5>영화 제목 : </h5>
+                                                    {% if searched|upper in msh.movie_name|upper %}
+                                                        <h5><span
+                                                                style="background-color : #ebff82">{{ msh.movie_name }}</span>
+                                                        </h5><br>
+                                                    {% else %}
+                                                        <h5>{{ msh.movie_name }}</h5><br>
+                                                    {% endif %}
 
-            <a>영화 감독 : </a>
-                {% if searched|upper in msh.movie_dir|upper %}
-                    <a><span style="background-color : #ebff82">{{ msh.movie_dir }}</span></a><br>
-                {% else %}
-                    <a>{{ msh.movie_dir }}</a><br>
-                {% endif %}
+                                                    <a>영화 감독 : </a>
+                                                    {% if searched|upper in msh.movie_dir|upper %}
+                                                        <a><span
+                                                                style="background-color : #ebff82">{{ msh.movie_dir }}</span></a>
+                                                        <br>
+                                                    {% else %}
+                                                        <a>{{ msh.movie_dir }}</a><br>
+                                                    {% endif %}
 
-            <a>영화 장르 : </a>
-                {% if searched|upper in msh.movie_ger|upper %}
-                    <a><span style="background-color : #ebff82">{{ msh.movie_ger }}</span></a><br>
-                {% else %}
-                    <a>{{ msh.movie_ger }}</a><br>
-                {% endif %}
+                                                    <a>영화 장르 : </a>
+                                                    {% if searched|upper in msh.movie_ger|upper %}
+                                                        <a><span
+                                                                style="background-color : #ebff82">{{ msh.movie_ger }}</span></a>
+                                                        <br>
+                                                    {% else %}
+                                                        <a>{{ msh.movie_ger }}</a><br>
+                                                    {% endif %}
 
-        </td>
-        <td style="vertical-align: middle;">
+                                                </td>
+                                                <td style="vertical-align: middle;">
 
-            {% for fig in forign %}
-                {% if msh.movie_id == fig.movie_id_id %}
-                    {% if searched|upper in fig.ost_name|upper %}
-                        <a><span style="background-color : #ebff82">{{ fig.ost_name }}</span>    <button type="button" class="btn btn-outline-primary">추천 받기</button></a><br>
-                    {% else %}
-                        <a>{{ fig.ost_name }}    </a><button type="button" class="btn btn-outline-primary">추천 받기</button><br>
-                    {% endif %}
-                {% endif %}
+                                                    {% for fig in forign %}
+                                                        {% if msh.movie_id == fig.movie_id_id %}
+                                                            {% if searched|upper in fig.ost_name|upper %}
+                                                                <a><span
+                                                                        style="background-color : #ebff82">{{ fig.ost_name }}</span>
+                                                                    <button type="button"
+                                                                            class="btn btn-outline-primary">추천 받기
+                                                                    </button>
+                                                                </a><br>
+                                                            {% else %}
+                                                                <a>{{ fig.ost_name }}    </a>
+                                                                <button type="button" class="btn btn-outline-primary">추천
+                                                                    받기
+                                                                </button><br>
+                                                            {% endif %}
+                                                        {% endif %}
 
-            {% endfor %}
-        </td>
-    </tr>
-                {% endfor %}
-  </tbody>
-</table>
+                                                    {% endfor %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-
-
-
-        {% else %}
-                <h1> 찾고 계신 영화를 입력해주세요 </h1>
-        {% endif %}
+    {% else %}
+        <h1> 찾고 계신 영화를 입력해주세요 </h1>
+    {% endif %}
 {% endblock %}
 
 </body>

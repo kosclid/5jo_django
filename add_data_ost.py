@@ -26,10 +26,9 @@ with open('데이터완성본_id추가.csv', encoding='utf8') as csv_file_sub_ca
         energy = row[10]
         loudness = row[11]
         tempo = row[12]
-        cluster = None
 
         ost = Ost(movie_id=movie_id, ost_name=ost_name, valence=valence, acousticness=acousticness,
-                  danceability=danceability, energy=energy, loudness=loudness, tempo=tempo, cluster=cluster)
+                  danceability=danceability, energy=energy, loudness=loudness, tempo=tempo)
         ost_list.append(ost)
         print(ost_name)
 print(len(ost_list))

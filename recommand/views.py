@@ -13,6 +13,7 @@ def index(request):
         "recommand/index.html",
         {'poster': poster, })
 
+
 @login_required  # 함수위에 씌워주면 로그인시에만 확인 가능
 def search(request):
     if request.method == 'POST':
@@ -27,11 +28,11 @@ def search(request):
             ost_mv.append(ost_mv_id.movie_id_id)
 
         movie_sh = Movie.objects.filter(
-                            Q(movie_name__icontains=searched)|
-                            Q(movie_ger__icontains=searched)|
-                            Q(movie_dir__icontains=searched)|
-                            Q(movie_id__in=ost_mv))
-        mo_id=[]
+            Q(movie_name__icontains=searched) |
+            Q(movie_ger__icontains=searched) |
+            Q(movie_dir__icontains=searched) |
+            Q(movie_id__in=ost_mv))
+        mo_id = []
         for mov_id in movie_sh:
             mo_id.append(mov_id.movie_id)
         forign = Ost.objects.filter(movie_id_id__in=mo_id)
@@ -39,8 +40,7 @@ def search(request):
         # forign = ost_search(movie_sh)
         # forign = Ost.objects.filter(movie_id_id=0)
 
-        return render(request, 'recommand/searched.html', {'searched': searched, 'movie_sh': movie_sh, 'forign': forign})
+        return render(request, 'recommand/searched.html',
+                      {'searched': searched, 'movie_sh': movie_sh, 'forign': forign})
     else:
         return render(request, 'recommand/searched.html', {})
-
-

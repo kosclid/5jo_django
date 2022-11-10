@@ -3,13 +3,13 @@
 
 {% block content %}
 
-<h2>sign-up</h2>
+    <h2>sign-up</h2>
 
-<form action="" method="post">
-    {% csrf_token %}
-    {% bootstrap_form form %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
 
-    <input type="submit" value="Signup" />
-</form>
+        <input type="submit" value="Signup"/>
+    </form>
 
 {% endblock %}

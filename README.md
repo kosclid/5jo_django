@@ -13,6 +13,7 @@ PS C:\workspace\esg-a-django> venv\Scripts\activate
 pip install django-bootstrap5
 pip install Mysqlclient
 pip install Pillow
+pip install scipy
 
 3. migrate
 (venv) PS C:\workspace\esg-a-django> python .\manage.py showmigrations
