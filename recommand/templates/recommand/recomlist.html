@@ -34,7 +34,7 @@
                             장르 : {{ re_mv.movie_ger }} <br>
                             감독 : {{ re_mv.movie_dir }} <br>
                             배우 : {{ re_mv.movie_act }} <br>
-                            <a href="#"> 영화 예고편 </a><br>
+                            <a href="{{ re_mv.movie_link }}"> 영화 예고편 </a><br>
                         </td>
                         {% for re_ost in rec_ost %}
                             {% if re_ost.movie_id_id == re_mv.movie_id %}
