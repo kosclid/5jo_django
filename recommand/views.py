@@ -63,3 +63,26 @@ def relist(request, sel_id):
         request,
         "recommand/recomlist.html",
         {'rec_mv': rec_mv, 'rec_ost': rec_ost})
+
+
+
+def thank(request):
+    if request.method == 'POST':
+        review_list = []
+        for i in range(10):
+            if request.POST.get('{}_btn'.format(i+1)) ==None:
+                review_list.append('no')
+            else:
+                review_list.append(request.POST.get('{}_btn'.format(i+1)))
+
+
+        # searched = request.POST['searched']
+        # # movie_sh = Movie.objects.filter(movie_name__icontains=searched)
+        # ost_sh = Ost.objects.filter(
+        #     ost_name__icontains=searched
+        # )
+        return render(request, 'recommand/thank.html',
+                      {'rev_list': review_list})
+    else:
+        return render(request, 'recommand/thank.html',
+                      {})

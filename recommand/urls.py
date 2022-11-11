@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.home),
     path('search/', views.search, name='search'),
     path('list/<int:sel_id>', views.relist),
+    path('thank', views.thank, name='thank'),
 
 ]
 

@@ -20,11 +20,15 @@
     <div class="d-flex justify-content-center">
         <nav class="navbar">
             <div class="container-fluid">
+
+
                 <form class="d-flex" method="POST" action="{% url 'search' %}">
                     {% csrf_token %}
                     <input class="form-control me-2" type="search" placeholder="영화명을 입력해주세요" name='searched' aria-label="Search">
                     <button class="btn btn-outline-light" href="/recommand" type="submit">Search</button>
                 </form>
+
+
             </div>
         </nav>
     </div>

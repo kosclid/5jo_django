@@ -11,51 +11,77 @@
 
     <section>
         <div class="table_responsive">
+
             <table>
-                <thead>
-                <tr>
-                    <th> 추천 순위</th>
-                    <th> 포스터</th>
-                    <th> 영화 정보</th>
-                    <th> 레이더 차트</th>
-                    <th> 평가</th>
-                </tr>
-                </thead>
-
-
-                <tbody>
-
-                {% for re_mv in rec_mv %}
-
+                <form class="d-flex" method="POST" action="{% url 'thank' %}">
+                    {% csrf_token %}
+                    <thead>
                     <tr>
-                        <td> 0</td>
-                        <td><img src="{{ re_mv.movie_poster.url }}" alt="poster"></td>
-                        <td>영화제목 : {{ re_mv.movie_name }} <br>
-                            장르 : {{ re_mv.movie_ger }} <br>
-                            감독 : {{ re_mv.movie_dir }} <br>
-                            배우 : {{ re_mv.movie_act }} <br>
-                            <a href="{{ re_mv.movie_link }}"> 영화 예고편 </a><br>
-                        </td>
-                        {% for re_ost in rec_ost %}
-                            {% if re_ost.movie_id_id == re_mv.movie_id %}
-                                <td><img src="{{ re_ost.rader_chart.url }}" alt="rader"></td>
-                            {% endif %}
+                        <th> 추천 순위</th>
+                        <th> 포스터</th>
+                        <th> 영화 정보</th>
+                        <th> 레이더 차트</th>
+                        <th> 평가</th>
+                    </tr>
+                    </thead>
 
-                        {% endfor %}
 
-                        <td>
-                            <span class="action_btn">
-                                <button type="button" name="{{ re_mv.movie_id }}">좋아요</button>
-                                <button type="button">싫어요</button>
-                            </span>
+                    <tbody>
+
+                    {% for re_mv in rec_mv %}
+
+
+                        <tr>
+                            <td> {{ forloop.counter }}</td>
+                            <td><img src="{{ re_mv.movie_poster.url }}" alt="poster"></td>
+                            <td>영화제목 : {{ re_mv.movie_name }} <br>
+                                장르 : {{ re_mv.movie_ger }} <br>
+                                감독 : {{ re_mv.movie_dir }} <br>
+                                배우 : {{ re_mv.movie_act }} <br>
+                                <a href="{{ re_mv.movie_link }}"> 영화 예고편 </a><br>
+                            </td>
+
+
+                            {% for re_ost in rec_ost %}
+                                {% if re_ost.movie_id_id == re_mv.movie_id %}
+                                    <td><img src="{{ re_ost.rader_chart.url }}" alt="rader"></td>
+
+                                {% endif %}
+                            {% endfor %}
+
+                                    <td>
+                                        <div class="btn-group-vertical" role="group"
+                                             aria-label="Basic radio toggle button group">
+
+                                            <input type="radio" class="btn-check" name="{{ forloop.counter }}_btn"
+                                                   id="{{ forloop.counter }}_good" value="{{ re_mv.movie_id }}_good" autocomplete="off">
+                                            <label class="btn btn-outline-primary"
+                                                   for="{{ forloop.counter }}_good">좋아요</label>
+
+                                            <input type="radio" class="btn-check" name="{{ forloop.counter }}_btn"
+                                                   id="{{ forloop.counter }}_bad" value="{{ re_mv.movie_id }}_bad" autocomplete="off">
+                                            <label class="btn btn-outline-primary"
+                                                   for="{{ forloop.counter }}_bad">싫어요</label>
+
+                                        </div>
+                                    </td>
+                        </tr>
+                    {% endfor %}
+
+
+                    {#                    저장 버튼 테이블 태그마지막 tr라인에 있습니다.#}
+                    <tr>
+                        <td colspan="5">
+                            <button class="btn btn-blue" type="submit">저장</button>
                         </td>
                     </tr>
 
-                {% endfor %}
+                    </tbody>
+                </form>
 
-
-                </tbody>
             </table>
+
+
         </div>
     </section>
 
