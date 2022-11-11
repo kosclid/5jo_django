@@ -46,25 +46,31 @@
                                 {% if re_ost.movie_id_id == re_mv.movie_id %}
                                     <td><img src="{{ re_ost.rader_chart.url }}" alt="rader"></td>
 
-                                {% endif %}
-                            {% endfor %}
-
                                     <td>
                                         <div class="btn-group-vertical" role="group"
                                              aria-label="Basic radio toggle button group">
 
                                             <input type="radio" class="btn-check" name="{{ forloop.counter }}_btn"
-                                                   id="{{ forloop.counter }}_good" value="{{ re_mv.movie_id }}_good" autocomplete="off">
+                                                   id="{{ forloop.counter }}_good"
+                                                   value="{{ choose_ost }}_{{ re_ost.id }}_good" autocomplete="off">
                                             <label class="btn btn-outline-primary"
                                                    for="{{ forloop.counter }}_good">좋아요</label>
 
                                             <input type="radio" class="btn-check" name="{{ forloop.counter }}_btn"
-                                                   id="{{ forloop.counter }}_bad" value="{{ re_mv.movie_id }}_bad" autocomplete="off">
+                                                   id="{{ forloop.counter }}_bad"
+                                                   value="{{ choose_ost }}_{{ re_ost.id }}_bad" autocomplete="off">
                                             <label class="btn btn-outline-primary"
                                                    for="{{ forloop.counter }}_bad">싫어요</label>
 
                                         </div>
                                     </td>
+
+
+
+                                {% endif %}
+                            {% endfor %}
+
+
                         </tr>
                     {% endfor %}
 

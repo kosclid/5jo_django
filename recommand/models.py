@@ -47,28 +47,21 @@ class Ost_nomal(models.Model):
     cluster = models.IntegerField()
 
 
-class Movie_recommand(models.Model):
+class Movie_rec(models.Model):
     ost_id = models.ForeignKey('Ost', on_delete=models.CASCADE, db_column='ost_id')
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
     recodation = models.CharField(max_length=200)
+    review = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return f'{self.user_id} : {self.ost_id}_{self.recodation}'
 
+def ost_movie(ost_id):
+    chs_ost = Ost.objects.get(id=ost_id)
+    wt_mv_id = chs_ost.movie_id_id
+    return wt_mv_id
 
-class User_rating(models.Model):
-    recommand_id = models.ForeignKey('Movie_recommand', on_delete=models.CASCADE, db_column='recommand_id')
-    review = models.PositiveSmallIntegerField(validators=[MaxValueValidator(2), ], null=True)
-    movie_id = models.ForeignKey(Movie, on_delete=models.CASCADE, db_column='movie_id')
-
-
-def ost_search(movie_all):
-    mo_id = movie_all
-    ost_all = []
-    for mov_id in mo_id:
-        forign = Ost.objects.filter(movie_id_id=mov_id)
-        ost_one = []
-        for ost_num in forign:
-            ost_one.append(ost_num.ost_name)
-        ost_all.append(ost_one)
-    return (ost_all)
 
 
 def movie_recomand(ch_ost):

@@ -26,15 +26,6 @@ with open('데이터완성본_id추가.csv', encoding='utf8') as csv_file_sub_ca
         loudness = row[11]
         tempo = row[12]
 
-        # ost_n = row[2]
-        # ost_n = re.sub(r'[^\w]', ' ', ost_n)
-        # ost_n = ost_n.replace("'", "")
-        # ost_n = ost_n.replace('  ', ' ')
-        # year = int(row[4])
-        # sech = ost_n + '_' + str(year)
-        # sech = sech.replace(' ', '')
-        # sech = sech.replace(' ', '')
-
         rader_chart = 'static/img/rader/{}.png'.format(n)
 
         ost = Ost(movie_id=movie_id, ost_name=ost_name, valence=valence, acousticness=acousticness,
