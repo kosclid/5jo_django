@@ -15,6 +15,7 @@ pip install scipy
 
 3. migrate
 마이그래이션 하기전에 accounts, recommand폴더에 migrations폴더 들어가서
+데이터 베이스는 밀어야 합니다...모델 다시 수정 했어요..
 
 __init__.py외에 다른 파일(0001_initial.py같은)있는지 확인하고 있으면 삭제하세요
 __init__.py은 지우면 안되요!!!
