@@ -7,7 +7,7 @@ from django.shortcuts import render
 
 from accounts.forms import UserForm, User
 from accounts.forms import LoginView, LogoutView, CreateView
-
+from recommand.models import Movie_rec
 
 login = LoginView.as_view(
     template_name="accounts/login_form.html"
@@ -20,7 +20,14 @@ logout = LogoutView.as_view(
 
 @login_required  # 함수위에 씌워주면 로그인시에만 확인 가능
 def profile(request):
-    return render(request, 'accounts/profile.html')
+    user_id = request.user.id
+    user_own_review = Movie_rec.objects.filter(user_id=user_id).order_by('-pk')
+    user_name = request.user.username
+
+
+    return render(request, 'accounts/profile.html',
+                  {'user_own_review': user_own_review, 'user_name': user_name,})
+
 
 
 signup = CreateView.as_view(

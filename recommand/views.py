@@ -76,23 +76,38 @@ def thank(request):
                 pass
 
             else:
+                user_id = request.user
+                user_name = request.user.username
+
                 rec = rec.split('_')
                 sel_ost = Ost.objects.get(id=rec[0])
                 recom_ost = Ost.objects.get(id=rec[1])
 
-                ost_id = sel_ost
-                user_id = request.user
-                recodation = recom_ost
+                ch_ost_id = sel_ost.id
+                ch_ost = Ost.objects.get(id=ch_ost_id)
+                ch_ost_name = ch_ost.ost_name
+                ch_mov_id = ch_ost.movie_id_id
+                ch_mov = Movie.objects.get(movie_id=ch_mov_id)
+                ch_mov_name = ch_mov.movie_name
+
+                rec_ost_id = recom_ost.id
+                rec_ost = Ost.objects.get(id=rec_ost_id)
+                rec_ost_name = rec_ost.ost_name
+                rec_mov_id = rec_ost.movie_id_id
+                rec_mov = Movie.objects.get(movie_id=rec_mov_id)
+                rec_mov_name = rec_mov.movie_name
+
                 review = rec[2]
 
                 same_check = Movie_rec.objects.filter(
-                    Q(ost_id=ost_id) &
+                    Q(ost_id=ch_ost_id) &
                     Q(user_id=user_id) &
-                    Q(recodation=recodation))
+                    Q(rec_ost_name=rec_ost_name))
                 if same_check.exists():
                     same_check.delete()
 
-                mov_rec = Movie_rec(ost_id=ost_id, user_id=user_id, recodation=recodation, review=review)
+                mov_rec = Movie_rec(ost_id=ch_ost, user_id=user_id, user_name=user_name, ch_ost_name=ch_ost_name, ch_mov_name=ch_mov_name,
+                                    rec_ost_name=rec_ost_name, rec_mov_name=rec_mov_name, review=review)
                 mov_rec.save()
 
         return render(request, 'recommand/thank.html',

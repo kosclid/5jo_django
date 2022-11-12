@@ -1,8 +1,67 @@
 {% extends 'accounts/base.html' %}
+{% load django_bootstrap5 %}
+{% load static %}
 
 {% block content %}
 
-    <h2>{{ user }}'s Profile</h2>
+    <link rel="stylesheet" href="{% static 'css/otherhome.css' %}" media="screen"/>
+
+        <body id="page-top">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+            <!-- Sidebar -->
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <!-- Main Content -->
+                <div id="content">
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">{{ user_name }}께서 평가하신 정보입니다.</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                            <th>사용자 이름</th>
+                                            <th>검색한 영화 제목</th>
+                                            <th>검색한 OST 제목</th>
+                                            <th>추천받은 영화 제목</th>
+                                            <th>추천받은 OST 제목</th>
+                                            <th>평가</th>
+                                            <th>최근 업데이트</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        {% for user_own in user_own_review %}
+                                            <tr>
+                                                <td><a>{{ user_own.user_name }}</a></td>
+                                                <td><a href = '/recommand/list/{{ user_own.ost_id_id}}'>{{ user_own.ch_mov_name }}</a></td>
+                                                <td><a>{{ user_own.ch_ost_name }}</a></td>
+                                                <td><a>{{ user_own.rec_mov_name }}</a></td>
+                                                <td><a>{{ user_own.rec_ost_name }}</a></td>
+                                                <td><a>{{ user_own.review }}</a></td>
+                                                <td><a>{{ user_own.updated_at }}</a></td>
+
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 {% endblock %}
+
+</body>

@@ -50,12 +50,16 @@ class Ost_nomal(models.Model):
 class Movie_rec(models.Model):
     ost_id = models.ForeignKey('Ost', on_delete=models.CASCADE, db_column='ost_id')
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
-    recodation = models.CharField(max_length=200)
+    user_name = models.CharField(max_length=200)
+    ch_ost_name = models.CharField(max_length=200)
+    ch_mov_name = models.CharField(max_length=200)
+    rec_ost_name = models.CharField(max_length=200)
+    rec_mov_name = models.CharField(max_length=200)
     review = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     def __str__(self):
-        return f'{self.user_id} : {self.ost_id}_{self.recodation}'
+        return f'{self.user_id} : {self.ch_ost_name}_{self.rec_ost_name}'
 
 def ost_movie(ost_id):
     chs_ost = Ost.objects.get(id=ost_id)
