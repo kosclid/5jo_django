@@ -61,6 +61,9 @@ class Movie_rec(models.Model):
     def __str__(self):
         return f'{self.user_id} : {self.ch_ost_name}_{self.rec_ost_name}'
 
+    def get_absolute_url(self):
+        return f'/recommand/list/{self.ost_id_id}'
+
 def ost_movie(ost_id):
     chs_ost = Ost.objects.get(id=ost_id)
     wt_mv_id = chs_ost.movie_id_id

@@ -110,8 +110,12 @@ def thank(request):
                                     rec_ost_name=rec_ost_name, rec_mov_name=rec_mov_name, review=review)
                 mov_rec.save()
 
-        return render(request, 'recommand/thank.html',
-                      {'rev_list': review_list})
+        user_id = request.user.id
+        user_own_review = Movie_rec.objects.filter(user_id=user_id)
+        user_name = request.user.username
+
+        return render(request, 'accounts/profile.html',
+                      {'user_own_review': user_own_review, 'user_name': user_name, })
     else:
         return render(request, 'recommand/thank.html',
                       {})

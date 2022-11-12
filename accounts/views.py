@@ -21,7 +21,7 @@ logout = LogoutView.as_view(
 @login_required  # 함수위에 씌워주면 로그인시에만 확인 가능
 def profile(request):
     user_id = request.user.id
-    user_own_review = Movie_rec.objects.filter(user_id=user_id).order_by('-pk')
+    user_own_review = Movie_rec.objects.filter(user_id=user_id)
     user_name = request.user.username
 
 
