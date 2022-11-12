@@ -28,11 +28,10 @@
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                         <tr>
-                                            <th>사용자 이름</th>
-                                            <th>검색한 영화 제목</th>
-                                            <th>검색한 OST 제목</th>
-                                            <th>추천받은 영화 제목</th>
-                                            <th>추천받은 OST 제목</th>
+                                            <th>검색한<br>영화 제목</th>
+                                            <th>검색한<br>OST 제목</th>
+                                            <th>추천 받은<br>영화 제목</th>
+                                            <th>추천 받은 <br>OST 제목</th>
                                             <th>평가</th>
                                             <th>최근 업데이트</th>
                                         </tr>
@@ -41,7 +40,6 @@
                                         <tbody>
                                         {% for user_own in user_own_review %}
                                             <tr>
-                                                <td><a>{{ user_own.user_name }}</a></td>
                                                 <td><a href = '/recommand/list/{{ user_own.ost_id_id}}'>{{ user_own.ch_mov_name }}</a></td>
                                                 <td><a>{{ user_own.ch_ost_name }}</a></td>
                                                 <td><a>{{ user_own.rec_mov_name }}</a></td>
