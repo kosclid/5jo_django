@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from accounts.models import User
 from django.core.validators import MaxValueValidator
@@ -12,7 +13,7 @@ class Movie(models.Model):
     movie_act = models.CharField(max_length=200)
     movie_ger = models.CharField(max_length=200)
     movie_text = models.TextField(null=True, blank=True)
-    movie_poster = models.ImageField(upload_to="recommand/images/poster")
+    movie_poster = models.ImageField(upload_to="media/images/poster")
     movie_link = models.CharField(max_length=200)
 
     def __str__(self):
@@ -30,10 +31,13 @@ class Ost(models.Model):
     energy = models.FloatField()
     loudness = models.FloatField()
     tempo = models.FloatField()
-    rader_chart = models.ImageField(upload_to="recommand/images/rader")
+    rader_chart = models.ImageField(upload_to="media/images/rader")
 
     def __str__(self):
         return f"{self.movie_id} : {self.ost_name}"
+
+    def get_absolute_url(self):
+        return f"/recommand/list/{self.id}"
 
 
 class Ost_nomal(models.Model):
@@ -66,6 +70,17 @@ class Movie_rec(models.Model):
 
     def get_absolute_url(self):
         return f"/recommand/list/{self.ost_id_id}"
+
+
+class Comment(models.Model):
+    ost = models.ForeignKey(Ost, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, db_column="user")
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user.username}  : {self.ost.ost_name}"
 
 
 def ost_movie(ost_id):

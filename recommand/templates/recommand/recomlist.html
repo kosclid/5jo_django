@@ -9,9 +9,46 @@
     <link rel="stylesheet" href="{% static 'css/otherhome.css' %}" media="screen"/>
     <link rel="stylesheet" href="{% static 'css/repagecss.css' %}">
 
-    <section>
-        <div class="table_responsive">
+    <style>
+        .my_hidden {
+            display: none;
+        }
+    </style>
 
+    <section>
+
+        <button onclick="
+                const description_id = 'movie_description_{{ search_movie.movie_id }}';
+                console.log('toggle ' + description_id);
+                document.querySelector('#' + description_id).classList.toggle('my_hidden');">검색한 영화 확인
+        </button>
+
+        <div id="movie_description_{{ search_movie.movie_id }}" class="my_hidden">
+            <table>
+                <thead>
+                <tr>
+                    <th> 포스터</th>
+                    <th> 검색한 영화 정보</th>
+                    <th> 레이더 차트</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td><img src="{{ search_movie.movie_poster.url }}" alt="rader"></td>
+                    <td>영화제목 : {{ search_movie.movie_name }} <br>
+                        장르 : {{ search_movie.movie_ger }} <br>
+                        감독 : {{ search_movie.movie_dir }} <br>
+                        배우 : {{ search_movie.movie_act }} <br>
+                        <a href="{{ search_movie.movie_link }}"> 영화 예고편 </a><br>
+                    </td>
+                    <td><img src="{{ search_ost.rader_chart.url }}" alt="rader"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table_responsive">
             <table>
                 <form class="d-flex" method="POST" action="{% url 'thank' %}">
                     {% csrf_token %}
@@ -24,12 +61,9 @@
                         <th> 평가</th>
                     </tr>
                     </thead>
-
-
                     <tbody>
 
                     {% for re_mv in rec_mv %}
-
 
                         <tr>
                             <td> {{ forloop.counter }}</td>
@@ -41,15 +75,12 @@
                                 <a href="{{ re_mv.movie_link }}"> 영화 예고편 </a><br>
                             </td>
 
-
                             {% for re_ost in rec_ost %}
                                 {% if re_ost.movie_id_id == re_mv.movie_id %}
                                     <td><img src="{{ re_ost.rader_chart.url }}" alt="rader"></td>
-
                                     <td>
                                         <div class="btn-group-vertical" role="group"
                                              aria-label="Basic radio toggle button group">
-
                                             <input type="radio" class="btn-check" name="{{ forloop.counter }}_btn"
                                                    id="{{ forloop.counter }}_good"
                                                    value="{{ choose_ost }}_{{ re_ost.id }}_good" autocomplete="off">
@@ -61,19 +92,15 @@
                                                    value="{{ choose_ost }}_{{ re_ost.id }}_bad" autocomplete="off">
                                             <label class="btn btn-outline-primary"
                                                    for="{{ forloop.counter }}_bad">싫어요</label>
-
                                         </div>
                                     </td>
-
-
 
                                 {% endif %}
                             {% endfor %}
 
-
                         </tr>
-                    {% endfor %}
 
+                    {% endfor %}
 
                     {#                    저장 버튼 테이블 태그마지막 tr라인에 있습니다.#}
                     <tr>
@@ -81,14 +108,76 @@
                             <button class="btn btn-blue" type="submit">저장</button>
                         </td>
                     </tr>
-
                     </tbody>
                 </form>
-
             </table>
-
-
         </div>
+        <br>
+
+
+        <button onclick="
+                const description_id = 'movie_description_comment';
+                console.log('toggle ' + description_id);
+                document.querySelector('#' + description_id).classList.toggle('my_hidden');">댓글 작성
+        </button>
+
+        <div id="movie_description_comment" class="my_hidden">
+            <div class="container-fluid">
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <div>
+                            {#                                    <a href="{{ choose_ost }}/comments/new/">댓글 쓰기 </a>#}
+                            <form action="{{ choose_ost }}/comments/new/" method="post" novalidate>
+                                {% csrf_token %}
+                                <table>
+                                    {{ comment_form.as_table }}
+                                </table>
+                                <input type="submit" value="댓글 저장"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="wrapper">
+            <div id="content-wrapper" class="d-flex flex-column">
+                <div id="content">
+                    <div class="container-fluid">
+                        <div class="card shadow mb-4">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                            <th>글쓴이</th>
+                                            <th>댓글 내용</th>
+                                            <th>작성 일시</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        {% for comment in comment_list %}
+                                            <tr>
+                                                <td>
+                                                    <a>{{ comment.user.username }}</a>
+                                                </td>
+                                                <td><a>{{ comment.comment }}</a></td>
+                                                <td><a>{{ comment.updated_at }}</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </section>
 
 {% endblock %} }}

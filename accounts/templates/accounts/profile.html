@@ -7,60 +7,120 @@
 
     <link rel="stylesheet" href="{% static 'css/otherhome.css' %}" media="screen"/>
 
-        <body id="page-top">
-        <!-- Page Wrapper -->
-        <div id="wrapper">
-            <!-- Sidebar -->
-            <!-- Content Wrapper -->
-            <div id="content-wrapper" class="d-flex flex-column">
+    <body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-                <!-- Main Content -->
-                <div id="content">
-                    <!-- Begin Page Content -->
-                    <div class="container-fluid">
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
 
-                        <!-- DataTales Example -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">{{ user_name }}께서 평가하신 정보입니다.</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">{{ user_name }}께서 평가하신 정보입니다.</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th>검색한<br>영화 제목</th>
+                                        <th>검색한<br>OST 제목</th>
+                                        <th>추천 받은<br>영화 제목</th>
+                                        <th>추천 받은 <br>OST 제목</th>
+                                        <th>평가</th>
+                                        <th>최근 업데이트</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    {% for user_own in user_own_review %}
                                         <tr>
-                                            <th>검색한<br>영화 제목</th>
-                                            <th>검색한<br>OST 제목</th>
-                                            <th>추천 받은<br>영화 제목</th>
-                                            <th>추천 받은 <br>OST 제목</th>
-                                            <th>평가</th>
-                                            <th>최근 업데이트</th>
+                                            <td><a href='{{ user_own.get_absolute_url }}'>{{ user_own.ch_mov_name }}</a>
+                                            </td>
+                                            <td><a>{{ user_own.ch_ost_name }}</a></td>
+                                            <td><a>{{ user_own.rec_mov_name }}</a></td>
+                                            <td><a>{{ user_own.rec_ost_name }}</a></td>
+                                            <td><a>{{ user_own.review }}</a></td>
+                                            <td><a>{{ user_own.updated_at }}</a></td>
+
                                         </tr>
-                                        </thead>
-
-                                        <tbody>
-                                        {% for user_own in user_own_review %}
-                                            <tr>
-                                                <td><a href = '{{ user_own.get_absolute_url }}'>{{ user_own.ch_mov_name }}</a></td>
-                                                <td><a>{{ user_own.ch_ost_name }}</a></td>
-                                                <td><a>{{ user_own.rec_mov_name }}</a></td>
-                                                <td><a>{{ user_own.rec_ost_name }}</a></td>
-                                                <td><a>{{ user_own.review }}</a></td>
-                                                <td><a>{{ user_own.updated_at }}</a></td>
-
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">{{ user_name }}께서 작성하신 댓글입니다.</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th>댓글 목록</th>
+                                        <th>작성 일시</th>
+                                        <th>보기</th>
+
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    {% for comment in user_own_comments %}
+                                        <tr>
+                                            <td><a>{{ comment.comment }}</a></td>
+                                            <td>{{ comment.updated_at }}</td>
+                                            <td>
+                                                <button type="button"
+                                                        onclick="location.href='/recommand/list/{{ comment.ost.id }}/comments/{{ comment.id }}/edit/'"
+                                                        class="btn btn-primary btn-lg">수정
+                                                </button>
+                                                <br>
+
+                                                <button type="button"
+                                                        onclick="location.href='/recommand/list/{{ comment.ost.id }}/comments/{{ comment.id }}/delete/'"
+                                                        class="btn btn-primary btn-lg">삭제
+                                                </button>
+
+                                            </td>
+
+
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </body>
 
 {% endblock %}
-
-</body>

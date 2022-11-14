@@ -36,6 +36,7 @@
                                         </thead>
 
                                         <tbody>
+
                                         {% for msh in movie_sh %}
                                             <tr>
                                                 <td>
@@ -44,57 +45,73 @@
                                                 </td>
                                                 <td>
                                                     <h5>영화 제목 : </h5>
+
                                                     {% if searched|upper in msh.movie_name|upper %}
                                                         <h5><span
                                                                 style="background-color : #ebff82">{{ msh.movie_name }}</span>
                                                         </h5><br>
+
                                                     {% else %}
                                                         <h5>{{ msh.movie_name }}</h5><br>
+
                                                     {% endif %}
 
                                                     <a>영화 감독 : </a>
+
                                                     {% if searched|upper in msh.movie_dir|upper %}
                                                         <a><span
                                                                 style="background-color : #ebff82">{{ msh.movie_dir }}</span></a>
                                                         <br>
+
                                                     {% else %}
                                                         <a>{{ msh.movie_dir }}</a><br>
+
                                                     {% endif %}
+
                                                     <a>영화 장르 : </a>
+
                                                     {% if searched|upper in msh.movie_ger|upper %}
                                                         <a><span
                                                                 style="background-color : #ebff82">{{ msh.movie_ger }}</span></a>
                                                         <br>
+
                                                     {% else %}
                                                         <a>{{ msh.movie_ger }}</a><br>
+
                                                     {% endif %}
-
-
 
                                                 </td>
                                                 <td style="vertical-align: middle;">
 
                                                     {% for fig in forign %}
+
                                                         {% if msh.movie_id == fig.movie_id_id %}
+
                                                             {% if searched|upper in fig.ost_name|upper %}
                                                                 <a><span
                                                                         style="background-color : #ebff82">{{ fig.ost_name }}</span>
                                                                 </a>
+
                                                             {% else %}
                                                                 <a>{{ fig.ost_name }}    </a>
+
                                                             {% endif %}
-                                                            <form class="d-flex" method='POST'
-                                                                  action="/recommand/list/{{ fig.id }}">
-                                                                {% csrf_token %}
-                                                                <button class="btn btn-dark"
-                                                                        type="submit">추천 받기
-                                                                </button>
-                                                            </form>
+
+                                                            <button type='button'
+                                                                    onclick="location.href='{{ fig.get_absolute_url }}'">
+                                                                추천 받기
+                                                            </button>
+                                                            <br>
+
                                                         {% endif %}
+
                                                     {% endfor %}
+
                                                 </td>
                                             </tr>
+
                                         {% endfor %}
+
                                         </tbody>
                                     </table>
                                 </div>

@@ -1,5 +1,7 @@
-from django.shortcuts import render
-from recommand.models import Movie, Ost, mv_ost_recomand, Movie_rec, ost_movie
+from django.shortcuts import render, redirect
+
+from recommand.forms import CommentForm
+from recommand.models import Movie, Ost, mv_ost_recomand, Movie_rec, ost_movie, Comment
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
@@ -21,7 +23,6 @@ def home(request):
 
 @login_required  # 함수위에 씌워주면 로그인시에만 확인 가능
 def search(request):
-
     searched = request.GET["searched"]
     # movie_sh = Movie.objects.filter(movie_name__icontains=searched)
     ost_sh = Ost.objects.filter(ost_name__icontains=searched)
@@ -49,16 +50,90 @@ def search(request):
 
 
 def relist(request, sel_id):
+    search_ost = Ost.objects.get(id=sel_id)
+    search_movie = Movie.objects.get(movie_id=search_ost.movie_id_id)
     re_mov_list = mv_ost_recomand(sel_id)[0]
     re_ost_list = mv_ost_recomand(sel_id)[1]
     rec_mv = Movie.objects.filter(movie_id__in=re_mov_list)
     rec_ost = Ost.objects.filter(id__in=re_ost_list)
     choose_ost = Ost.objects.get(id=sel_id)
     choose_ost = choose_ost.id
+    comment_list = search_ost.comment_set.all()  # search_ost에 대한 댓글목록 얻기 아래랑 같은 의미
+    # comment_list = Comment.objects.filter(ost = search_ost)
+    comment_form = CommentForm()
     return render(
         request,
         "recommand/recomlist.html",
-        {"rec_mv": rec_mv, "rec_ost": rec_ost, "choose_ost": choose_ost},
+        {
+            "rec_mv": rec_mv,
+            "rec_ost": rec_ost,
+            "choose_ost": choose_ost,
+            "search_ost": search_ost,
+            "search_movie": search_movie,
+            "comment_list": comment_list,
+            "comment_form": comment_form,
+        },
+    )
+
+
+@login_required  # 함수위에 씌워주면 로그인시에만 확인 가능
+def comment_new(request, ost_id):
+    ost_ch = Ost.objects.get(id=ost_id)
+    if request.method == "POST":
+        form = CommentForm(request.POST, request.FILES)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.ost = ost_ch
+            comment.save()
+            redirect_url = f"/recommand/list/{comment.ost_id}"
+            return redirect(redirect_url)
+    else:
+        form = CommentForm()
+    return render(
+        request,
+        "recommand/comment_form.html",
+        {
+            "form": form,
+        },
+    )
+
+
+@login_required  # 함수위에 씌워주면 로그인시에만 확인 가능
+def comment_edit(request, ost_id, com_id):
+    comment = Comment.objects.get(id=com_id)
+    if request.method == "POST":
+        form = CommentForm(request.POST, request.FILES, instance=comment)
+        if form.is_valid():
+            comment = form.save()
+            redirect_url = "/accounts/profile/"
+            return redirect(redirect_url)
+    else:
+        form = CommentForm()
+    return render(
+        request,
+        "recommand/comment_form.html",
+        {
+            "form": form,
+        },
+    )
+
+
+@login_required
+def comment_delete(request, ost_id, com_id):
+    comment = Comment.objects.get(id=com_id)
+
+    # ToDo: delete memory
+    if request.method == "POST":
+        comment.delete()
+        redirect_url = "/accounts/profile/"
+        return redirect(redirect_url)
+    return render(
+        request,
+        "recommand/comment_delete.html",
+        {
+            "comment": comment,
+        },
     )
 
 
@@ -70,8 +145,6 @@ def thank(request):
                 review_list.append("no")
             else:
                 review_list.append(request.POST.get("{}_btn".format(i + 1)))
-
-        # mov_rec = Movie_rec()
         for rec in review_list:
             if rec == "no":
                 pass
