@@ -7,4 +7,3 @@ urlpatterns = [
     path("profile/", views.profile),
     path("signup/", views.signup),
 ]
-

@@ -12,15 +12,17 @@ class Movie(models.Model):
     movie_act = models.CharField(max_length=200)
     movie_ger = models.CharField(max_length=200)
     movie_text = models.TextField(null=True, blank=True)
-    movie_poster = models.ImageField(upload_to='recommand/images/poster')
+    movie_poster = models.ImageField(upload_to="recommand/images/poster")
     movie_link = models.CharField(max_length=200)
 
     def __str__(self):
-        return f'[{self.movie_id}] : {self.movie_name}({self.year})'
+        return f"[{self.movie_id}] : {self.movie_name}({self.year})"
 
 
 class Ost(models.Model):
-    movie_id = models.ForeignKey('Movie', on_delete=models.CASCADE, db_column='movie_id')
+    movie_id = models.ForeignKey(
+        "Movie", on_delete=models.CASCADE, db_column="movie_id"
+    )
     ost_name = models.CharField(max_length=200)
     valence = models.FloatField()
     acousticness = models.FloatField()
@@ -28,14 +30,14 @@ class Ost(models.Model):
     energy = models.FloatField()
     loudness = models.FloatField()
     tempo = models.FloatField()
-    rader_chart = models.ImageField(upload_to='recommand/images/rader')
+    rader_chart = models.ImageField(upload_to="recommand/images/rader")
 
     def __str__(self):
-        return f'{self.movie_id} : {self.ost_name}'
+        return f"{self.movie_id} : {self.ost_name}"
 
 
 class Ost_nomal(models.Model):
-    ost_id = models.ForeignKey('Ost', on_delete=models.CASCADE, db_column='ost_id')
+    ost_id = models.ForeignKey("Ost", on_delete=models.CASCADE, db_column="ost_id")
     num_valence = models.FloatField()
     num_acousticness = models.FloatField()
     num_danceability = models.FloatField()
@@ -48,8 +50,8 @@ class Ost_nomal(models.Model):
 
 
 class Movie_rec(models.Model):
-    ost_id = models.ForeignKey('Ost', on_delete=models.CASCADE, db_column='ost_id')
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
+    ost_id = models.ForeignKey("Ost", on_delete=models.CASCADE, db_column="ost_id")
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column="user_id")
     user_name = models.CharField(max_length=200)
     ch_ost_name = models.CharField(max_length=200)
     ch_mov_name = models.CharField(max_length=200)
@@ -58,11 +60,13 @@ class Movie_rec(models.Model):
     review = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
-        return f'{self.user_id} : {self.ch_ost_name}_{self.rec_ost_name}'
+        return f"{self.user_id} : {self.ch_ost_name}_{self.rec_ost_name}"
 
     def get_absolute_url(self):
-        return f'/recommand/list/{self.ost_id_id}'
+        return f"/recommand/list/{self.ost_id_id}"
+
 
 def ost_movie(ost_id):
     chs_ost = Ost.objects.get(id=ost_id)
@@ -77,22 +81,37 @@ def mv_ost_recomand(ch_ost):
     ost_sel_num = Ost_nomal.objects.get(ost_id_id=ost_sel.id)
     # print(ost_sel_num.cluster)
     dist_list = []
-    select_ost_list = [ost_sel_num.num_valence, ost_sel_num.num_acousticness, ost_sel_num.num_danceability,
-                       ost_sel_num.num_energy,
-                       ost_sel_num.num_loudness, ost_sel_num.num_tempo, ost_sel_num.num_gern, ost_sel_num.num_mvdir]
+    select_ost_list = [
+        ost_sel_num.num_valence,
+        ost_sel_num.num_acousticness,
+        ost_sel_num.num_danceability,
+        ost_sel_num.num_energy,
+        ost_sel_num.num_loudness,
+        ost_sel_num.num_tempo,
+        ost_sel_num.num_gern,
+        ost_sel_num.num_mvdir,
+    ]
 
     ost_same_cluster = Ost_nomal.objects.filter(cluster=ost_sel_num.cluster)
     for ost_one in ost_same_cluster:
         # print(ost_one.ost_id)
 
-        one_list = [ost_one.num_valence, ost_one.num_acousticness, ost_one.num_danceability, ost_one.num_energy,
-                    ost_one.num_loudness, ost_one.num_tempo, ost_one.num_gern, ost_one.num_mvdir]
+        one_list = [
+            ost_one.num_valence,
+            ost_one.num_acousticness,
+            ost_one.num_danceability,
+            ost_one.num_energy,
+            ost_one.num_loudness,
+            ost_one.num_tempo,
+            ost_one.num_gern,
+            ost_one.num_mvdir,
+        ]
         dist = distance.euclidean(select_ost_list, one_list)
         dist_list.append((ost_one.ost_id_id, dist))
     dist_list = sorted(dist_list, key=lambda x: x[1])
 
     recommand_ost_id = []
-    recommand_mov_id =[]
+    recommand_mov_id = []
     for sort_dist in dist_list:
         # print(sort_dist[0])
 

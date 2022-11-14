@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = "accounts.User"
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,12 +37,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
-    'django_bootstrap5',
+    "django_bootstrap5",
     "accounts",
     "recommand",
     "detail",
-
 ]
 
 MIDDLEWARE = [
@@ -61,7 +59,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            BASE_DIR / 'movie_prj' / 'templates',
+            BASE_DIR / "movie_prj" / "templates",
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -89,13 +87,13 @@ WSGI_APPLICATION = "movie_prj.wsgi.application"
 # }
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'homestead',
-        'USER': 'homestead',
-        'PASSWORD': 'secret',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "homestead",
+        "USER": "homestead",
+        "PASSWORD": "secret",
+        "HOST": "127.0.0.1",
+        "PORT": "3306",
     }
 }
 
@@ -150,5 +148,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 STATICFILES_DIRS = [
     # os.path.join(BASE_DIR, 'static'),
-    BASE_DIR / 'static',
+    BASE_DIR
+    / "static",
 ]

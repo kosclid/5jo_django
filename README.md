@@ -3,7 +3,7 @@ python -m venv venv
 venv\Scripts\activate
 
 2. 라이브러리 설치
-python -m pip intall "django==4.1.0“s
+python -m pip intall "django==4.1.0“
 python -m pip install "django~=4.1"
 python -m pip install --upgrade pip
 python -m pip install wheel

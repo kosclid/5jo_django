@@ -10,11 +10,11 @@ django.setup()
 from recommand.models import Ost, Ost_nomal
 
 ost_nom_list = []
-with open('clusterdata.csv', encoding='utf8') as csv_file_sub_categories:
+with open("clusterdata.csv", encoding="utf8") as csv_file_sub_categories:
     rows = csv.reader(csv_file_sub_categories)
     next(rows, None)
     for row in rows:
-        ost = Ost.objects.get(id=int(row[0])+1)
+        ost = Ost.objects.get(id=int(row[0]) + 1)
         ost_id = ost
         cluster = int(row[3])
         num_gern = float(row[4])
@@ -26,9 +26,18 @@ with open('clusterdata.csv', encoding='utf8') as csv_file_sub_categories:
         num_loudness = float(row[10])
         num_tempo = float(row[11])
 
-        ost_nom = Ost_nomal(ost_id=ost_id, cluster=cluster, num_gern=num_gern, num_mvdir=num_mvdir,
-                            num_valence=num_valence, num_acousticness=num_acousticness, num_danceability=num_danceability,
-                            num_energy=num_energy, num_loudness=num_loudness, num_tempo=num_tempo)
+        ost_nom = Ost_nomal(
+            ost_id=ost_id,
+            cluster=cluster,
+            num_gern=num_gern,
+            num_mvdir=num_mvdir,
+            num_valence=num_valence,
+            num_acousticness=num_acousticness,
+            num_danceability=num_danceability,
+            num_energy=num_energy,
+            num_loudness=num_loudness,
+            num_tempo=num_tempo,
+        )
         ost_nom_list.append(ost_nom)
         print(row[1])
 print(len(ost_nom_list))

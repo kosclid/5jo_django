@@ -11,8 +11,8 @@ from recommand.models import Movie, Ost
 
 ost = Ost()
 ost_list = []
-n=0
-with open('데이터완성본_id추가.csv', encoding='utf8') as csv_file_sub_categories:
+n = 0
+with open("데이터완성본_id추가.csv", encoding="utf8") as csv_file_sub_categories:
     rows = csv.reader(csv_file_sub_categories)
     next(rows, None)
     for row in rows:
@@ -26,13 +26,22 @@ with open('데이터완성본_id추가.csv', encoding='utf8') as csv_file_sub_ca
         loudness = row[11]
         tempo = row[12]
 
-        rader_chart = 'static/img/rader/{}.png'.format(n)
+        rader_chart = "static/img/rader/{}.png".format(n)
 
-        ost = Ost(movie_id=movie_id, ost_name=ost_name, valence=valence, acousticness=acousticness,
-                  danceability=danceability, energy=energy, loudness=loudness, tempo=tempo, rader_chart=rader_chart)
+        ost = Ost(
+            movie_id=movie_id,
+            ost_name=ost_name,
+            valence=valence,
+            acousticness=acousticness,
+            danceability=danceability,
+            energy=energy,
+            loudness=loudness,
+            tempo=tempo,
+            rader_chart=rader_chart,
+        )
         ost_list.append(ost)
         print(ost_name)
-        n+=1
+        n += 1
 print(len(ost_list))
 Ost.objects.bulk_create(ost_list)
 Ost.objects.all().count()
