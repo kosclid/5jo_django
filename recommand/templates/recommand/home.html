@@ -1,44 +1,38 @@
 {% extends 'recommand/base.html' %}
 {% load django_bootstrap5 %}
 {% load static %}
+
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/home.css' %}" media="screen"/>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" media="screen"/>
 
-
-<section>
-    <div class="d-flex justify-content-center">
-        <div class="p-5 text-light">
-            <h1 class="mt-lg-5">
-                <em>
-                    <strong>
-                        입력만 해, <br> 영화 골라줄게
-                    </strong>
-                </em>
-            </h1>
-        </div>
-    </div>
-    <div class="d-flex justify-content-center">
-        <nav class="navbar">
-            <div class="container-fluid">
-
-
-                <form class="d-flex" method="GET" action="{% url 'search' %}">
-                    {% csrf_token %}
-                    <input class="form-control me-2" type="search" placeholder="영화명을 입력해주세요" name='searched' aria-label="Search">
-                    <button class="btn btn-outline-light" href="/recommand" type="submit">Search</button>
-                </form>
-
-
+    <section>
+        <div class="d-flex justify-content-center">
+            <div class="p-5 text-light">
+                <br><br><br><br><br><br>
+                <h1 class="mt-lg-5">
+                    <em>
+                        <strong>
+                            입력만 해, <br> 영화 골라줄게
+                        </strong>
+                    </em>
+                </h1>
             </div>
-        </nav>
-    </div>
-{#    <div class="container">#}
-{#        <div class="row my-3">#}
-{#            <div class="d-flex justify-content-md-end">#}
-{#                <a href="/home/ost_search">ost만 기억나요ㅠ.ㅠ</a>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-</section>
+        </div>
+        <div class="d-flex justify-content-center">
+            <nav class="navbar">
+
+                <div class="container-fluid">
+
+                    <form class="d-flex" method="GET" action="{% url 'search' %}">
+                        {% csrf_token %}
+                        <input style="width:450px;height:50px;font-size:15px;" class="form-control me-2" type="search"
+                               placeholder="영화명을 입력해주세요" name='searched' aria-label="Search">
+                        <button class="btn btn-outline-light" href="/recommand" type="submit">Search</button>
+                    </form>
+
+                </div>
+            </nav>
+        </div>
+    </section>
 
 {% endblock %}

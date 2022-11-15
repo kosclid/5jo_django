@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 body {
+    font-family: 'Gowun Dodum', sans-serif;
     background: url('/static/img/background.jpg') no-repeat
 center center fixed;
     -webkit-background-size: cover;
@@ -6,6 +8,8 @@ center center fixed;
     background-size: cover;
     -o-background-size: cover;
 }
+
+
 
 section {
     margin-bottom: 300px;
