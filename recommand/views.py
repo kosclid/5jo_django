@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from recommand.forms import CommentForm
-from recommand.models import Movie, Ost, mv_ost_recomand, Movie_rec, ost_movie, Comment
+from recommand.models import Movie, Ost, mv_ost_recomand, Movie_rec, Comment
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
@@ -109,7 +109,7 @@ def comment_edit(request, ost_id, com_id):
             redirect_url = "/accounts/profile/"
             return redirect(redirect_url)
     else:
-        form = CommentForm()
+        form = CommentForm(instance=comment)
     return render(
         request,
         "recommand/comment_form.html",
