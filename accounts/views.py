@@ -6,7 +6,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render
 from django.views.generic import CreateView
 from accounts.forms import SignupForm
-from recommand.models import Movie_rec, Comment
+from recommand.models import Movie_rec, Comment, Movie, Ost
 
 login = LoginView.as_view(template_name="accounts/login_form.html")
 

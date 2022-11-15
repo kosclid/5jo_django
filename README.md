@@ -27,8 +27,8 @@ python manage.py migrate
 데이터베이스 슈퍼계정(관리자) 만들기
 python manage.py createsuperuser
 
-이후 데이터 베이스가 잘 연결되어 있다면 아래코드가 실행됩니다.
-add_data_movie.py
-add_data_ost.py
-add_data_nomal.py
+이후 데이터 베이스가 잘 연결되어 있다면 powershell에서 아래코드가 실행됩니다.
+python manage.py load_initial_movies
+python manage.py load_initial_osts
+python manage.py load_initial_nomal
 차례대로 실행 (데이터 베이스에 데이터 저장하는 과정)

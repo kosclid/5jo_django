@@ -137,6 +137,24 @@ def comment_delete(request, ost_id, com_id):
     )
 
 
+@login_required
+def review_delete(request, rev_id):
+    wt_mov_rec = Movie_rec.objects.get(id=rev_id)
+
+    # ToDo: delete memory
+    if request.method == "POST":
+        wt_mov_rec.delete()
+        redirect_url = "/accounts/profile/"
+        return redirect(redirect_url)
+    return render(
+        request,
+        "recommand/comment_delete.html",
+        {
+            "wt_mov_rec": wt_mov_rec,
+        },
+    )
+
+
 def thank(request):
     if request.method == "POST":
         review_list = []

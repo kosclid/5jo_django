@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block content %}
-    <h2 style = "color: white;">{{ user_name }}의 profile</h2>
+    <h2 style="color: white;">{{ user_name }}의 profile</h2>
 
     <link rel="stylesheet" href="{% static 'css/otherhome.css' %}" media="screen"/>
 
@@ -16,6 +16,7 @@
 
             <!-- Main Content -->
             <div id="content">
+            <br>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
@@ -35,19 +36,27 @@
                                         <th>추천 받은 <br>OST 제목</th>
                                         <th>평가</th>
                                         <th>최근 업데이트</th>
+                                        <th>삭제</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
                                     {% for user_own in user_own_review %}
                                         <tr>
-                                            <td><a href='{{ user_own.get_absolute_url }}'>{{ user_own.ch_mov_name }}</a>
+                                            <td><a>{{ user_own.ch_mov_name }}</a>
                                             </td>
-                                            <td><a>{{ user_own.ch_ost_name }}</a></td>
+                                            <td><a href='{{ user_own.get_absolute_url }}'>{{ user_own.ch_ost_name }}</a>
+                                            </td>
                                             <td><a>{{ user_own.rec_mov_name }}</a></td>
                                             <td><a>{{ user_own.rec_ost_name }}</a></td>
                                             <td><a>{{ user_own.review }}</a></td>
                                             <td><a>{{ user_own.updated_at }}</a></td>
+                                            <td>
+                                                <button type="button"
+                                                        onclick="location.href='/recommand/list/review/{{ user_own.id }}/delete/'"
+                                                        class="btn btn-primary btn-lg">삭제
+                                                </button>
+                                            </td>
 
                                         </tr>
                                     {% endfor %}
@@ -81,6 +90,7 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                     <tr>
+                                        <th>검색한<br>OST 제목</th>
                                         <th>댓글 목록</th>
                                         <th>작성 일시</th>
                                         <th>보기</th>
@@ -91,6 +101,9 @@
                                     <tbody>
                                     {% for comment in user_own_comments %}
                                         <tr>
+                                            <td>
+                                                <a href='{{ comment.ost.get_absolute_url }}'>{{ comment.ost.ost_name }}</a>
+                                            </td>
                                             <td><a>{{ comment.comment }}</a></td>
                                             <td>{{ comment.updated_at }}</td>
                                             <td>
@@ -98,6 +111,7 @@
                                                         onclick="location.href='/recommand/list/{{ comment.ost.id }}/comments/{{ comment.id }}/edit/'"
                                                         class="btn btn-primary btn-lg">수정
                                                 </button>
+                                                <br>
                                                 <br>
 
                                                 <button type="button"

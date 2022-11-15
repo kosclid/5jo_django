@@ -9,5 +9,6 @@ urlpatterns = [
     path("list/<int:ost_id>/comments/new/", views.comment_new),
     path("list/<int:ost_id>/comments/<int:com_id>/edit/", views.comment_edit),
     path("list/<int:ost_id>/comments/<int:com_id>/delete/", views.comment_delete),
+    path("list/review/<int:rev_id>/delete/", views.review_delete),
     path("thank", views.thank, name="thank"),
 ]
